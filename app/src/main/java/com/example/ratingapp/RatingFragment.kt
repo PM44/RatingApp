@@ -8,6 +8,7 @@ import android.widget.RatingBar
 import android.widget.SeekBar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation
 import kotlinx.android.synthetic.main.fragment_rating.*
 
 
@@ -37,6 +38,7 @@ class RatingFragment : Fragment(), RatingBar.OnRatingBarChangeListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         ratingbar.setOnRatingBarChangeListener(this);
+        ratingbar.rating=1.0f
         viewModel = ViewModelProviders.of(this).get(RatingViewModel::class.java)
 
         seekBar.setOnSeekBarChangeListener(
@@ -64,6 +66,7 @@ class RatingFragment : Fragment(), RatingBar.OnRatingBarChangeListener {
 
         submit.setOnClickListener {
             viewModel.storeData(rating)
+            Navigation.findNavController(it).navigate(RatingFragmentDirections.actionRatingFragmentToListFragment())
         }
 
     }
